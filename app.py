@@ -160,7 +160,7 @@ def weekweather():
         res_dict[dates[i]] = str(temps[i]) + "C " + str(conditions[i])
     for key, value in res_dict.items():
         res_list.append(key + " " + value)
-    return str(res_list)
+    return '<p>Weather in {} for week: </p><p>{}</p>'.format(city, str(res_list))
     
 @app.route("/city/date")
 def get_city_date():
