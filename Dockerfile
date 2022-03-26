@@ -1,9 +1,9 @@
+# syntax=docker/dockerfile:1
 FROM python:3.9
-
+ADD . /flask_ht
 WORKDIR /flask_ht
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-ENV FLASK_APP=app.py
-EXPOSE 5000
-CMD flask run -h 0.0.0.0 -p 5000
+COPY requirements.txt /flask_ht
+RUN pip3 install --upgrade pip -r requirements.txt
+# ENV FLASK_APP=app.py
+# EXPOSE 5000
+CMD [ "python", "app.py" ]
