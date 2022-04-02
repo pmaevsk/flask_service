@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: flask-deployment
+    spec:
+      containers:
+        - image: pmaevsk/pm_hub:deploy_flask
+          name: flask-app
+          env: 
+            - name: GOOGLE_CLIENT_ID 
+              valueFrom: 
+                secretKeyRef: 
+                  name: google-credentials 
+                  key: GOOGLE_CLIENT_ID 
+            - name: GOOGLE_CLIENT_SECRET 
+              valueFrom: 
+                secretKeyRef: 
+                  name: google-credentials 
+                  key: GOOGLE_CLIENT_SECRET        
+          ports:
+            - containerPort: 5000
